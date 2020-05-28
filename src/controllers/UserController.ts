@@ -1,11 +1,15 @@
 import { Request, Response } from 'express';
-import EmailService from '../services/EmailService';
+import { getRepository } from 'typeorm';
 
-const users = [{ name: 'Rafael', email: 'rafael@padovani.com.br' }];
+import EmailService from '../services/EmailService';
+import { User } from '../entities/User';
+
+// const users = [{ name: 'Rafael', email: 'rafael@padovani.com.br' }];
 
 export default {
     async index(req: Request, res: Response) {
-        return res.json(users);
+        const users = await getRepository(User).find();
+        return res.json(users)
     },
 
     async create(req: Request, res: Response) {
