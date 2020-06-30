@@ -1,25 +1,44 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 
-import EmailService from '../services/EmailService';
-import { User } from '../entities/User';
-
-// const users = [{ name: 'Rafael', email: 'rafael@padovani.com.br' }];
+import { User } from '../entity/User';
 
 export default {
     async index(req: Request, res: Response) {
         const users = await getRepository(User).find();
-        return res.json(users)
+        return res.json(users);
     },
 
-    async create(req: Request, res: Response) {
-        const emailService = new EmailService();
+    async createUser(req: Request, res: Response) {
+        console.log('Body', req.params.id);
+        // return res.status(200);
+        // const newUser = getRepository(User).create(req.body);
+        // const result = await getRepository(User).save(newUser);
+        // return res.json(result);
+    },
 
-        emailService.sendMail({
-            to: { name: 'Rafael Padovani', email: 'r.padovanni@hotmail.com' },
-            message: { subject: 'Bem-vindo ao sistema', body: 'Seja bem-viado' },
-        });
+    async getUser(req: Request, res: Response) {
+        const userId = req.params.id;
+        const user = await getRepository(User).findOne(userId);
+        return res.json(user);
+    },
 
-        return res.send();
+    async updateUser(req: Request, res: Response) {
+        const userId = req.params.id;
+        const user = await getRepository(User).findOne(userId);
+
+        if (user) {
+            getRepository(User).merge(user, req.body);
+            const result = await getRepository(User).save(user);
+            return res.json(result);
+        }
+
+        return res.status(404).json({ msg: 'User not found!' });
+    },
+
+    async deleteUser(req: Request, res: Response) {
+        const userId = req.params.id;
+        const user = await getRepository(User).delete(userId);
+        return res.json(user);
     },
 };

@@ -1,6 +1,7 @@
 {
     "type": "sqlite",
     "database": "./database/financial-app-db.sqlite",
-    "entitites": ["dist/entities/**/*.js"],
-    "synchronize": true
+    "synchronize": true,
+    "logging": false,
+    "entities": ["src/entity/**/*.ts"]
 }
