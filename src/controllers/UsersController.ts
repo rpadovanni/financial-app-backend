@@ -45,7 +45,11 @@ export default {
         try {
             await trx('users')
                 .where('user_id', userId)
-                .update({ name: newUser.name, password: newUser.password });
+                .update({
+                    name: newUser.name,
+                    password: newUser.password,
+                    updated_at: knex.fn.now(),
+                });
 
             await trx.commit();
             return res.json({ message: 'User Updated!', updatedUser: newUser });
