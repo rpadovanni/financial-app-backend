@@ -4,7 +4,7 @@ export async function up(knex: Knex) {
     return knex.schema.createTable('users', table => {
         table.increments('user_id').primary();
         table.string('name').notNullable();
-        table.string('username').notNullable();
+        table.string('username').notNullable().unique();
         table.string('password').notNullable();
     });
 }
