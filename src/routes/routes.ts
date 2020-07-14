@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import UsersController from '../controllers/UsersController';
 import AccountsController from '../controllers/AccountsController';
+import DebtsController from '../controllers/DebtsController';
 
 const routes = Router();
 
@@ -10,6 +11,13 @@ routes.get('/accounts/:id', AccountsController.show);
 routes.post('/accounts', AccountsController.create);
 routes.put('/accounts/:id', AccountsController.update);
 routes.delete('/accounts/:id', AccountsController.delete);
+
+// Debts
+routes.get('/debts', DebtsController.index);
+routes.get('/debts/:id', DebtsController.show);
+routes.post('/debts', DebtsController.create);
+routes.put('/debts/:id', DebtsController.update);
+routes.delete('/debts/:id', DebtsController.delete);
 
 // Users
 routes.get('/users', UsersController.index);
