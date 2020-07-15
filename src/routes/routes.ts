@@ -3,6 +3,7 @@ import UsersController from '../controllers/UsersController';
 import AccountsController from '../controllers/AccountsController';
 import DebtsController from '../controllers/DebtsController';
 import CardsController from '../controllers/CardsController';
+import CardBillsController from '../controllers/CardBillsController';
 
 const routes = Router();
 
@@ -19,6 +20,13 @@ routes.get('/cards/:id', CardsController.show);
 routes.post('/cards', CardsController.create);
 routes.put('/cards/:id', CardsController.update);
 routes.delete('/cards/:id', CardsController.delete);
+
+// Card Bills
+routes.get('/cards/:cardId/card-bills', CardBillsController.index);
+routes.get('/cards/:cardId/card-bills/:cardBillId', CardBillsController.show);
+routes.post('/cards/:cardId/card-bills', CardBillsController.create);
+routes.put('/cards/:cardId/card-bills/:cardBillId', CardBillsController.update);
+routes.delete('/cards/:cardId/card-bills/:cardBillId', CardBillsController.delete);
 
 // Debts
 routes.get('/debts', DebtsController.index);
