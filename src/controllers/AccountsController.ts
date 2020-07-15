@@ -40,7 +40,7 @@ export default {
         const trx = await knex.transaction();
 
         const account = await trx('accounts')
-            .where({ user_id: userId, account_id: accountId })
+            .where({ account_id: accountId, user_id: userId })
             .first();
 
         if (!account) {
@@ -49,14 +49,14 @@ export default {
         }
 
         try {
-            await trx('accounts').where({ user_id: userId, account_id: accountId }).update({
+            await trx('accounts').where({ account_id: accountId, user_id: userId }).update({
                 title: newAccount.title,
                 balance: newAccount.balance,
                 updated_at: knex.fn.now(),
             });
 
             await trx.commit();
-            return res.json({ message: 'Account Updated!', updatedUser: newAccount });
+            return res.json({ message: 'Account Updated!', updatedAccount: newAccount });
         } catch (err) {
             trx.rollback();
             return res.json({ message: 'Something went wrong :(', err });
