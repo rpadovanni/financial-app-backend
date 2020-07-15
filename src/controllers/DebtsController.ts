@@ -14,7 +14,7 @@ export default {
 
         try {
             await knex('debts').insert(newDebt);
-            return res.json({ message: 'Debt Created!', account: newDebt });
+            return res.json({ message: 'Debt Created!', newDebt: newDebt });
         } catch (err) {
             return res.json({ message: 'Something went wrong :(', err });
         }
@@ -22,15 +22,15 @@ export default {
 
     async show(req: Request, res: Response) {
         const debtId = req.params.id;
-        const account = await knex('debts')
+        const debt = await knex('debts')
             .where({ user_id: userId, debt_id: debtId })
             .first();
 
-        if (!account) {
+        if (!debt) {
             return res.status(404).json({ message: 'Debt not found :(' });
         }
 
-        return res.json(account);
+        return res.json(debt);
     },
 
     async update(req: Request, res: Response) {
@@ -39,11 +39,11 @@ export default {
 
         const trx = await knex.transaction();
 
-        const account = await trx('debts')
+        const debt = await trx('debts')
             .where({ debt_id: debtId, user_id: userId })
             .first();
 
-        if (!account) {
+        if (!debt) {
             trx.rollback();
             return res.status(404).json({ message: 'Debt not found :(' });
         }
@@ -68,9 +68,9 @@ export default {
 
         const trx = await knex.transaction();
 
-        const user = await trx('debts').where('debt_id', debtId).first();
+        const debt = await trx('debts').where('debt_id', debtId).first();
 
-        if (!user) {
+        if (!debt) {
             trx.rollback();
             return res.status(404).json({ message: 'Debt not found :(' });
         }

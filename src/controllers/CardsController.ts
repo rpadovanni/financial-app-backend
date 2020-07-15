@@ -14,7 +14,7 @@ export default {
 
         try {
             await knex('cards').insert(newCard);
-            return res.json({ message: 'Card Created!', account: newCard });
+            return res.json({ message: 'Card Created!', newCard: newCard });
         } catch (err) {
             return res.json({ message: 'Something went wrong :(', err });
         }
@@ -22,15 +22,15 @@ export default {
 
     async show(req: Request, res: Response) {
         const cardId = req.params.id;
-        const account = await knex('cards')
+        const card = await knex('cards')
             .where({ user_id: userId, card_id: cardId })
             .first();
 
-        if (!account) {
+        if (!card) {
             return res.status(404).json({ message: 'Card not found :(' });
         }
 
-        return res.json(account);
+        return res.json(card);
     },
 
     async update(req: Request, res: Response) {
@@ -39,11 +39,11 @@ export default {
 
         const trx = await knex.transaction();
 
-        const account = await trx('cards')
+        const card = await trx('cards')
             .where({ card_id: cardId, user_id: userId })
             .first();
 
-        if (!account) {
+        if (!card) {
             trx.rollback();
             return res.status(404).json({ message: 'Card not found :(' });
         }
@@ -67,9 +67,9 @@ export default {
 
         const trx = await knex.transaction();
 
-        const user = await trx('cards').where('card_id', cardId).first();
+        const card = await trx('cards').where('card_id', cardId).first();
 
-        if (!user) {
+        if (!card) {
             trx.rollback();
             return res.status(404).json({ message: 'Card not found :(' });
         }

@@ -14,7 +14,7 @@ export default {
 
         try {
             await knex('accounts').insert(newAccount);
-            return res.json({ message: 'Account Created!', account: newAccount });
+            return res.json({ message: 'Account Created!', newAccount: newAccount });
         } catch (err) {
             return res.json({ message: 'Something went wrong :(', err });
         }
@@ -68,9 +68,9 @@ export default {
 
         const trx = await knex.transaction();
 
-        const user = await trx('accounts').where('account_id', accountId).first();
+        const account = await trx('accounts').where('account_id', accountId).first();
 
-        if (!user) {
+        if (!account) {
             trx.rollback();
             return res.status(404).json({ message: 'Account not found :(' });
         }
