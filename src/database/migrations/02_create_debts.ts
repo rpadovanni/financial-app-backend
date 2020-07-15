@@ -5,8 +5,9 @@ export async function up(knex: Knex) {
         table.increments('debt_id').primary();
         table.string('title').notNullable();
         table.string('description');
+        table.decimal('amount').notNullable();
         table.date('due_date');
-        table.integer('user_id').references('user_id').inTable('users');
+        table.integer('user_id').references('user_id').inTable('users').notNullable();
         table.timestamps(true, true);
     });
 }
