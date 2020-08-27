@@ -8,7 +8,7 @@
         "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
         "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback",
         "knex:seed": "knex --knexfile knexfile.ts seed:run",
-        "server-start": "ts-node src/index.ts"
+        "server-start": "ts-node-transpile-only src/index.ts"
     },
     "author": "",
     "license": "ISC",
