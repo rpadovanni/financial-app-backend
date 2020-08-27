@@ -4,8 +4,12 @@ import AccountsController from '../controllers/AccountsController';
 import DebtsController from '../controllers/DebtsController';
 import CardsController from '../controllers/CardsController';
 import CardBillsController from '../controllers/CardBillsController';
+import AuthController from '../controllers/AuthController';
 
 const routes = Router();
+
+// Authentication
+routes.get('/authenticate', AuthController.authenticate);
 
 // Accounts
 routes.get('/accounts', AccountsController.index);

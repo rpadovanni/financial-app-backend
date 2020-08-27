@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
+import bcrypt from 'bcrypt';
 import knex from '../database/connection';
+import IUser from '../interfaces/IUser';
+import { generateJwtToken } from '../helpers/authentication.helper';
 
 export default {
     async index(req: Request, res: Response) {
@@ -10,10 +13,25 @@ export default {
     async create(req: Request, res: Response) {
         const newUser = req.body;
 
+        const encryptedPassword = await encryptPassword(newUser.password);
+        newUser.password = encryptedPassword;
+
+        const trx = await knex.transaction();
+
         try {
-            await knex('users').insert(newUser);
-            return res.json({ message: 'User Created!', user: newUser });
+            const insertedIds = await trx('users').insert(newUser);
+            const newUserId = insertedIds[0];
+            const jwtToken = generateJwtToken({ id: newUserId });
+
+            await trx.commit();
+
+            return res.json({ 
+                message: 'User Created!',
+                user: newUser,
+                token: jwtToken
+            });
         } catch (err) {
+            await trx.rollback();
             return res.json({ message: 'Something went wrong :(', err });
         }
     },
@@ -43,13 +61,11 @@ export default {
         }
 
         try {
-            await trx('users')
-                .where('user_id', userId)
-                .update({
-                    name: newUser.name,
-                    password: newUser.password,
-                    updated_at: knex.fn.now(),
-                });
+            await trx('users').where('user_id', userId).update({
+                name: newUser.name,
+                password: newUser.password,
+                updated_at: knex.fn.now(),
+            });
 
             await trx.commit();
             return res.json({ message: 'User Updated!', updatedUser: newUser });
@@ -80,4 +96,8 @@ export default {
             return res.json({ message: 'Something went wrong :(', err });
         }
     },
+};
+
+const encryptPassword = async (password: string) => {
+    return await bcrypt.hash(password, 10);
 };
