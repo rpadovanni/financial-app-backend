@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import knex from '../database/connection';
-import jwt from 'jsonwebtoken';
-import IUser from '../interfaces/IUser';
-import authConfig from '../config/auth';
 import { generateJwtToken } from '../helpers/authentication.helper';
 
 export default {
