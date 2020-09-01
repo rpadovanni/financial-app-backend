@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import knex from '../database/connection';
-import IUser from '../interfaces/IUser';
+
+// HELPERS
 import { generateJwtToken } from '../helpers/authentication.helper';
 
 export default {
