@@ -6,10 +6,12 @@
     "scripts": {
         "build": "tsc",
         "dev": "ts-node-dev --transpileOnly --respawn --ignore-watch node_modules src/index.ts",
-        "knex:migrate": "knex --knexfile knexfile.ts migrate:latest -x ts",
-        "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback -x ts",
-        "knex:seed": "knex --knexfile knexfile.ts seed:run -x ts",
-        "server-start": "node dist/src/index.js"
+        "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
+        "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback",
+        "knex:seed": "knex --knexfile knexfile.ts seed:run",
+        "server-start": "node dist/src/index.js",
+        "db-migrate": "knex --knexfile knexfile.js migrate:latest",
+        "db-rollback": "knex --knexfile knexfile.js migrate:rollback"
     },
     "author": "",
     "license": "ISC",
