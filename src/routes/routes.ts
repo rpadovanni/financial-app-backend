@@ -9,7 +9,7 @@ import AuthController from '../controllers/AuthController';
 const routes = Router();
 
 // Authentication
-routes.get('/authenticate', AuthController.authenticate);
+routes.post('/authenticate', AuthController.authenticate);
 
 // Accounts
 routes.get('/accounts', AccountsController.index);

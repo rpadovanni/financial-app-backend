@@ -1,11 +1,11 @@
 import knex from 'knex';
-import path from 'path';
+
+// CONFIGS
+import DB_CONNECTION from '../config/database';
 
 const connection = knex({
-    client: 'sqlite3',
-    connection: {
-        filename: path.resolve(__dirname, 'financial-app-db.sqlite')
-    },
+    client: DB_CONNECTION.client,
+    connection: DB_CONNECTION.connection,
     useNullAsDefault: true
 });
 

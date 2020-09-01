@@ -1,6 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+
+// CONFIGS
 import authConfig from '../config/auth';
+
+// INTERFACES
+import IJwtDecoded from '../interfaces/IJwtDecoded';
 
 const authenticationMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
@@ -29,8 +34,8 @@ const authenticationMiddleware = (req: Request, res: Response, next: NextFunctio
         if (err) {
             return res.status(401).json({ error: 'Invalid token :(' });
         }
-        
-        req.userId = decoded.id;
+
+        req.userId = (decoded as IJwtDecoded).id;
         return next();
     });
 };
