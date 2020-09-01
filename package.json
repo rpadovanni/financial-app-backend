@@ -9,7 +9,7 @@
         "knex:migrate": "knex --knexfile knexfile.ts migrate:latest",
         "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback",
         "knex:seed": "knex --knexfile knexfile.ts seed:run",
-        "start-server": "node dist/src/index.js"
+        "server-start": "node dist/src/index.js"
     },
     "author": "",
     "license": "ISC",

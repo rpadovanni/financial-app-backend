@@ -1,4 +1,3 @@
-web: npm run build
-start-server: npm run start-server
+web: npm run server-start
 db-migrate: npm run knex:migrate
 db-seed: npm run knex:migrate
