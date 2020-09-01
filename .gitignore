@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 # project related
-# src/database/financial-app-db.sqlite
+src/database/financial-app-db.sqlite

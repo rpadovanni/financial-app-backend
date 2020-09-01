@@ -2,6 +2,6 @@ import Knex from 'knex';
 
 export async function seed(knex: Knex) {
     await knex('users').insert([
-        { name: 'Test Name', username: 'test', password: 'test' }
+        { name: 'Rafael Padovani', username: 'rpadovanni', email: 'r.padovanni@hotmail.com', password: 'test' }
     ]);
 }
