@@ -10,8 +10,9 @@
         "knex:rollback": "knex --knexfile knexfile.ts migrate:rollback",
         "knex:seed": "knex --knexfile knexfile.ts seed:run",
         "server-start": "node dist/src/index.js",
-        "db-migrate": "knex --knexfile knexfile.js migrate:latest",
-        "db-rollback": "knex --knexfile knexfile.js migrate:rollback"
+        "db-migrate": "knex --knexfile dist/knexfile.js migrate:latest",
+        "db-rollback": "knex --knexfile dist/knexfile.js migrate:rollback",
+        "db-seed": "knex --knexfile dist/knexfile.js seed:run"
     },
     "author": "",
     "license": "ISC",
