@@ -62,6 +62,9 @@ export default {
         }
 
         try {
+            const encryptedPassword = await encryptPassword(newUser.password);
+            newUser.password = encryptedPassword;
+
             await trx('users').where('user_id', userId).update({
                 name: newUser.name,
                 password: newUser.password,

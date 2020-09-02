@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 
-const userId = 1; // Get via JWT in the future
-
 export default {
     async index(req: Request, res: Response) {
+        const userId = req.userId as number;
         const cards = await knex('cards').select('*').where('user_id', userId);
+        
         return res.json(cards);
     },
 
@@ -21,7 +21,9 @@ export default {
     },
 
     async show(req: Request, res: Response) {
+        const userId = req.userId as number;
         const cardId = req.params.id;
+
         const card = await knex('cards')
             .where({ user_id: userId, card_id: cardId })
             .first();
@@ -34,6 +36,7 @@ export default {
     },
 
     async update(req: Request, res: Response) {
+        const userId = req.userId as number;
         const cardId = req.params.id;
         const newCard = req.body;
 
