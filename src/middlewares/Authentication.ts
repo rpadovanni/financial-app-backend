@@ -10,7 +10,7 @@ import IJwtDecoded from '../interfaces/IJwtDecoded';
 const authenticationMiddleware = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
 
-    if (req.path === '/authenticate' || req.path === '/signup') {
+    if (req.path === '/authenticate' || req.path === '/register') {
         return next();
     }
 
