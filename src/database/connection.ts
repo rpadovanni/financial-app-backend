@@ -1,11 +1,13 @@
 import knex from 'knex';
+import path from 'path';
 
-// CONFIGS
-import DB_CONNECTION from '../config/database';
+const isProduction = process.env.NODE_ENV === 'production';
 
 const connection = knex({
-    client: DB_CONNECTION.client,
-    connection: DB_CONNECTION.connection,
+    client: isProduction ? 'pg' : 'sqlite3',
+    connection: isProduction ? process.env.DATABASE_URL : {
+        filename: path.resolve(__dirname, 'financial-app-db.sqlite'),
+    },
     useNullAsDefault: true
 });
 

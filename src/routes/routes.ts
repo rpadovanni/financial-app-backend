@@ -10,6 +10,7 @@ const routes = Router();
 
 // Authentication
 routes.post('/authenticate', AuthController.authenticate);
+routes.post('/register', UsersController.create);
 
 // Accounts
 routes.get('/accounts', AccountsController.index);

@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import knex from '../database/connection';
 
-const userId = 1; // Get via JWT in the future
-
 export default {
     async index(req: Request, res: Response) {
+        const userId = req.userId as number;
         const accounts = await knex('accounts').select('*').where('user_id', userId);
+        
         return res.json(accounts);
     },
 
@@ -21,7 +21,9 @@ export default {
     },
 
     async show(req: Request, res: Response) {
+        const userId = req.userId as number;
         const accountId = req.params.id;
+
         const account = await knex('accounts')
             .where({ user_id: userId, account_id: accountId })
             .first();
@@ -34,6 +36,7 @@ export default {
     },
 
     async update(req: Request, res: Response) {
+        const userId = req.userId as number;
         const accountId = req.params.id;
         const newAccount = req.body;
 
