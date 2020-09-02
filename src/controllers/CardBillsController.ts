@@ -4,9 +4,6 @@ import knex from '../database/connection';
 export default {
     async index(req: Request, res: Response) {
         const cardId = req.params.cardId;
-
-        console.log({ cardId });
-
         const cards = await knex('card_bills').select('*').where('card_id', cardId);
 
         return res.json(cards);

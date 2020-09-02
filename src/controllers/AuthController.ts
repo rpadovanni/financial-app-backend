@@ -8,8 +8,6 @@ import { generateJwtToken } from '../helpers/authentication.helper';
 export default {
     async authenticate(req: Request, res: Response) {
         const { email, password } = req.body;
-
-        console.log('AUTH CONTROLLER', password);
         
         const user = await knex('users').where('email', email).first();
 
